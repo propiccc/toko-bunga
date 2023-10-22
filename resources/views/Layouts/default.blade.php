@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript"src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{env('VITE_MIDRANS_CLIENT_KEY')}}"></script>
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>

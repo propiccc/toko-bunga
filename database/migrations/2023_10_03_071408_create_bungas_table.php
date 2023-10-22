@@ -11,15 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('bungas', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+
+            $table->string('image');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->char('no_telp', 13);
-            $table->enum('role', ['customer', 'admin']);
-            $table->rememberToken();
+            
+            $table->integer('harga');
+            $table->enum('tipe', ['bucket', 'papan']);
+            
+            $table->text('description');
+
+            $table->integer('stock');
+            
             $table->timestamps();
         });
     }
@@ -29,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('bungas');
     }
 };
