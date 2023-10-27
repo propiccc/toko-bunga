@@ -16,9 +16,17 @@
                 My<span class="text-red-600">Flowers</span>
             </a>
             <div class="bg-gray-100 flex flex-col h-full overflow-scroll scrollbar-none px-3 py-5 gap-y-2 text-white">
-                <a href="{{route('dashboard.admin')}}" class="w-full  min-h-[50px] flex items-center justify-center font-semibold text-xl rounded-md cursor-pointer {{request()->path() == 'dashboard' ? 'bg-blue-800' : 'bg-transparent text-black'}}">Dashboard</a>
-                <a href="{{route('bunga.index')}}" class="w-full  min-h-[50px] flex items-center justify-center font-semibold text-xl rounded-md cursor-pointer {{request()->path() == 'dashboard/bunga' || request()->path() == 'dashboard/bunga/create' || Request::is('dashboard/bunga/*/edit')  || request()->path() == 'dashboard/bunga/search' ? 'bg-blue-800' : 'bg-transparent text-black'}}">Bunga</a>
-                <a href="{{route('pemesanan.index')}}" class="w-full  min-h-[50px] flex items-center justify-center font-semibold text-xl rounded-md cursor-pointer {{request()->path() == 'dashboard/pemesanan' || request()->path() == 'dashboard/pemesanan/create' || Request::is('dashboard/pemesanan/*/edit')  || request()->path() == 'dashboard/pemesanan/search' ? 'bg-blue-800' : 'bg-transparent text-black'}}">Pemesanan</a>
+                @if (auth()->user()->role == 'admin')   
+                    <a href="{{route('dashboard.admin')}}" class="w-full  min-h-[50px] flex items-center justify-center font-semibold text-xl rounded-md cursor-pointer {{request()->path() == 'dashboard' ? 'bg-blue-800' : 'bg-transparent text-black'}}">Dashboard</a>
+                    <a href="{{route('user.index')}}" class="w-full  min-h-[50px] flex items-center justify-center font-semibold text-xl rounded-md cursor-pointer {{request()->path() == 'dashboard/user' || request()->path() == 'dashboard/user/create' || Request::is('dashboard/user/*/edit')  || request()->path() == 'dashboard/user/search' ? 'bg-blue-800' : 'bg-transparent text-black'}}">User</a>
+                    <a href="{{route('bunga.index')}}" class="w-full  min-h-[50px] flex items-center justify-center font-semibold text-xl rounded-md cursor-pointer {{request()->path() == 'dashboard/bunga' || request()->path() == 'dashboard/bunga/create' || Request::is('dashboard/bunga/*/edit')  || request()->path() == 'dashboard/bunga/search' ? 'bg-blue-800' : 'bg-transparent text-black'}}">Bunga</a>
+                    <a href="{{route('pemesanan.index')}}" class="w-full  min-h-[50px] flex items-center justify-center font-semibold text-xl rounded-md cursor-pointer {{request()->path() == 'dashboard/pemesanan' || request()->path() == 'dashboard/pemesanan/create' || Request::is('dashboard/pemesanan/*/edit')  || request()->path() == 'dashboard/pemesanan/search' ? 'bg-blue-800' : 'bg-transparent text-black'}}">Pemesanan</a>
+                
+                @elseif (auth()->user()->role == 'customer')    
+                    <a href="{{route('dashboard.customer')}}" class="w-full  min-h-[50px] flex items-center justify-center font-semibold text-xl rounded-md cursor-pointer {{request()->path() == 'customer/dashboard' ? 'bg-blue-800' : 'bg-transparent text-black'}}">Dashboard</a>
+                    <a href="{{route('payment.detail')}}" class="w-full  min-h-[50px] flex items-center justify-center font-semibold text-xl rounded-md cursor-pointer {{request()->path() == 'customer/payment' ? 'bg-blue-800' : 'bg-transparent text-black'}}">Pemesanan</a>
+                @endif
+                
             </div>
         </div>
         {{-- Menu End --}}

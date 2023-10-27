@@ -12,20 +12,21 @@ use Illuminate\Support\Facades\Validator;
 class PemesananController extends Controller
 {
     public function index(){
-        $data = Pemesanan::with(['User', 'Product'])->paginate(2);
+        $data = Pemesanan::with(['User', 'Product'])->get();
         return view('Page.Dashboard.Admin.Pemesanan.Index', [
             'pemesanan' => $data
         ]);
-        
     }
 
     public function PemesananIndex($uuid){
         
         $data = Bunga::where('uuid', $uuid)->first();
-
         if (!isset($data)) {
             toastr()->error('Data Not Found!');
             return redirect()->route('home');
+        }
+        if($data->stock === 0){
+            return redirect()->route('home')->with('error', 'Stock Telah Habis');
         }
 
         return view('Page.Pemesanan.Pemesanan',[
@@ -108,8 +109,14 @@ class PemesananController extends Controller
             return redirect()->route('pemesanan.index');
         }
         
-        $data = Pemesanan::where('name', 'LIKE', '%' . $request->search . '%')
-        ->orWhere('tipe', 'LIKE', '%' . $request->search . '%')
+        $data = Pemesanan::where('order_id', 'LIKE', '%' . $request->search . '%')
+        ->orWhere('status', 'LIKE', '%' . $request->search . '%')
+        ->orWhereHas('User', function($q) use ($request){
+            $q->where('name', 'LIKE', '%' . $request->search . '%');
+        })
+        ->orWhereHas('Product', function($q) use ($request){
+            $q->where('name', 'LIKE', '%' . $request->search . '%');
+        })
         ->get();
 
         return view('Page.Dashboard.Admin.Pemesanan.Index', [
@@ -132,6 +139,22 @@ class PemesananController extends Controller
         
     }
 
+    public function PemesananSuccess($uuid){
+        $data = Pemesanan::where('uuid', $uuid)->first();
+        if (!isset($data)) {
+            toastr()->error('Data Not Found!');
+            return redirect()->route('pemesanan.index');
+        }
+
+        $data->status = 'success';
+        $data->save();
+        
+        if($data){
+          return  redirect()->back()->with('success', 'Pesanan Sucess Sanpai Ke Customer!');
+        } else {
+           return redirect()->back()->with('error', 'Someting Wrong, Try Again!');
+        }
+    }
     public function set(Request $request, $uuid){
 
         $validate = Validator::make($request->all(), [

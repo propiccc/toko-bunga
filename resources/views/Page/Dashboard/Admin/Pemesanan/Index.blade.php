@@ -8,11 +8,8 @@ Dashboard | Pemesanan
 @endphp
 @section('content')
 <div class="bg-white w-full rounded-lg p-8">
-    <div class="flex justify-between items-center">
+    <div class="flex justify-start items-center">
         <span class="text-xl font-semibold text-black">Pemesanan Data</span>
-        <a href="/dashboard/pemesanan/create">
-            <button class="px-5 py-2 rounded-lg bg-blue-700 font-semibold text-white transition-all duration-300 active:scale-90">Add</button>
-        </a>
     </div>
     <div class="h-[2px] w-full bg-black my-4"></div>
     <div class="flex mb-4">
@@ -49,18 +46,22 @@ Dashboard | Pemesanan
                         </td>
                         <td>{{$item->User->name}}</td>
                         <td>{{$item->order_id}}</td>
-                        <td>Rp {{ number_format($item->Product->harga, 0, ',', ',')}}</td>
+                        <td>Rp{{ number_format($item->Product->harga, 0, ',', ',')}}</td>
                         <td>{{$item->status}}</td>
                         <td class="">
-                            <button data-token={{$item->order_id}} class="px-4 py-2 text-white bg-green-600 rounded-lg font-semibold transition-all duration-300 active:scale-95" id="check-button">Check</button>
+                            <button data-token={{$item->order_id}} class="px-4 py-2 text-black bg-yellow-500 rounded-lg font-semibold transition-all duration-300 active:scale-95" id="check-button">Check</button>
+                            @if ($item->status != 'success')           
+                            <a href="{{route('pemesanan.success', ['uuid' => $item->uuid])}}" class="px-4 py-2 text-white bg-green-600 rounded-lg font-semibold transition-all duration-300 active:scale-95">Selesai</a>
+                            @endif
+                            <a href="{{route('cetak.nota',['uuid' => $item->uuid])}}" class="px-4 py-2 text-white bg-purple-600 rounded-lg font-semibold transition-all duration-300 active:scale-95" id="check-a">Download PDF</a>
                         </td>
                     </tr>
                 @endforeach
-            @else   
-                <tr  class="bg-gray-100 h-[50px]">
-                    <th colspan="7" class="text-start px-2">Data Not Found</th>
-                </tr>
-            @endif
+                @else   
+                    <tr  class="bg-gray-100 h-[50px]">
+                        <th colspan="7" class="text-start px-2">Data Not Found</th>
+                    </tr>
+                @endif
         </tbody>
     </table>
     

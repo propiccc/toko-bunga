@@ -6,12 +6,13 @@ use App\Models\User;
 use App\Models\Bunga;
 use App\Models\Pemesanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index(){
         
-        $data = Bunga::all();
+        $data = Bunga::where('stock', '!=' , 0)->get();
         return view('Page.Home.Index',[
             'products' => $data,
         ]);
@@ -30,5 +31,14 @@ class HomeController extends Controller
             'product' => $product,
             'customer' => $customer
         ]);
+    }
+
+    public function dashboardCustomer(){
+
+        $pemesanan = Pemesanan::where('user_id', Auth::user()->id)->count();        
+        return view('Page.Dashboard.Customer.Dashboard.Index',[
+            'pemesanan' => $pemesanan,
+        ]);
+
     }
 }

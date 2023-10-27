@@ -4,6 +4,20 @@
 MyFlowers | Home
 @endsection
 @section('content')
+{{-- * IMage Header Start --}}
+<div class="flex w-full h-[800px] justify-center items-center">
+    
+    <img class="w-full object-fill h-[800px] absolute -z-10" src="https://i.pinimg.com/736x/1d/a9/2c/1da92cd25c742fd5e60f5bfd6b3735bc.jpg" alt="" srcset="">
+    <div class="flex flex-col text-white font-semibold">
+        <span class="bg-black p-4 text-4xl text-center">
+            Selamat Datang Di Toko Bunga MyFlowers
+        </span>
+        <span class=" text-center text-4xl bg-black p-4 font-semibold">
+            Tersedia Bunga Yang Anda Inginkan Di Sini, Toko Bunga Terlengkap hanya Di My Flowers
+        </span>
+    </div>
+</div>
+{{-- * IMage Header End --}}
 {{-- Header start --}}
 <div class="flex min-h-[600px] justify-center p-8 bg-black" id="about">
     <div class="bg-black  p-4 w-1/2 text-white">
@@ -23,6 +37,7 @@ MyFlowers | Home
     </div>   
 </div>
 {{-- Header start --}}
+
 {{-- Produk start --}}
     <div class="bg-gray-800 min-h-screen flex flex-col p-10">
         <div class="p-2">
@@ -37,20 +52,19 @@ MyFlowers | Home
                 <a href="{{route('product.detail',['uuid' => $item->uuid])}}" class="p-4">
                     <div class=" bg-gray-100 hover:bg-gray-200 hover:cursor-pointer min-h-[400px] min-w-[300px] max-w-[300px] max-h-[400px] rounded-lg border-[2px] border-black flex flex-col">
                         <div class="bg-white h-[200px] rounded-t-md border-b-[2px] border-black">
-                            <img class="rounded-t-md object-fill h-[200px] w-[300px]" src="https://tokobungamurah.com/wp-content/uploads/2020/12/bunga-papan-selamat-berbahagia-atas-pernikahan-ananda-harga-500-ribu-akuntansi-universitas-andalas-padang.jpg" alt="">
+                            <img class="rounded-t-md object-fill h-[200px] w-[300px]" src="{{$item->imagedir}}" alt="">
                         </div>
                         <div class="bg-transparent h-[200px] rounded-b-md flex flex-col p-2">
-                            <span class="text-md font-semibold flex max-h-[45px] overflow-hidden">Bunga Papan Ucapan Selamat</span>
-                            <span class="text-blue-700 font-semibold">Rp 1.000.000</span>
-                            <span class="text-sm text-yellow-600">Tipe Bunga : Bunga Papan</span>
+                            <span class="text-md font-semibold flex max-h-[45px] overflow-hidden">{{$item->name}}</span>
+                            <span class="text-blue-700 font-semibold">Rp{{ number_format($item->harga, 0, ',', '.') }}.00</span>
+                            <span class="text-sm text-yellow-600">Tipe Bunga : Bunga {{$item->tipe == 'papan' ? 'Papan' : 'Bucket'}}</span>
                             <span class="text-sm max-h-[100px] overflow-hidden">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro cupiditate molestiae eligendi consequuntur libero iure voluptatibus temporibus neque mollitia, rem suscipit, sapiente alias tempore, saepe enim id maiores totam. Consectetur eveniet quo error minus harum eligendi aperiam nihil nisi, omnis laboriosam molestiae aliquid, commodi at aut incidunt, nobis dolore! Earum nam sapiente nobis iure placeat veniam quas deleniti officia laboriosam, provident neque id aliquam impedit rerum nostrum? Fuga harum cum facere quae voluptas illum nulla? Commodi ipsa quae magni est expedita quidem ratione, tempore odio beatae ullam totam laborum, temporibus error necessitatibus doloremque eligendi soluta saepe consequatur perspiciatis assumenda. Nemo!
+                                {{$item->description}}
                             </span>
                         </div>
                     </div>
                 </a>
                 @endforeach
-            
             @else
                 <span class="text-black text-xl">No Product In Here</span>
             @endif

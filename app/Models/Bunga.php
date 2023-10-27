@@ -26,3 +26,5 @@ class Bunga extends Model
     }
    
 }
+
+

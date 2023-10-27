@@ -5,13 +5,14 @@
         @if (auth()->user()->role == 'admin')
         <div class="flex gap-x-3">
             <a href="{{route('home')}}" class="text-lg py-3 font-semibold">Home</a>
-            <a href="{{route('bunga.index')}}" class="text-lg py-3 font-semibold">Dashboard</a>
+            <a href="{{route('payment.detail')}}" class="text-lg py-3 font-semibold">Pesanan</a>
+            <a href="{{route('dashboard.admin')}}" class="text-lg py-3 font-semibold">Dashboard</a>
             <a href="{{route('logout')}}" class="text-lg py-3 font-semibold">Logout</a>
         </div>
         @else 
         <div class="flex gap-x-3">
             <a href="{{route('home')}}" class="text-lg py-3 font-semibold">Home</a>
-            <a href="{{route('bunga.index')}}" class="text-lg py-3 font-semibold">Pesanan</a>
+            <a href="{{route('payment.detail')}}" class="text-lg py-3 font-semibold">Pesanan</a>
             <a href="{{route('logout')}}" class="text-lg py-3 font-semibold">Logout</a>
         </div>
         @endif
